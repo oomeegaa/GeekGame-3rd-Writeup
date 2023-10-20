@@ -1,6 +1,6 @@
 ## GeekGame 3rd Writeup
 
-#### 前言
+### 前言
 
 ​	今年第二次来玩 geekgame，学了一点 ics 之后感觉没像去年那么坐牢了。
 
@@ -8,19 +8,19 @@
 
 ​	~~今年使用了屯题战术，给榜带来了一点奇观（~~
 
-#### prob23-signin 一眼盯帧 [Tutorial]
+### prob23-signin 一眼盯帧 [Tutorial]
 
 ​	逐帧获取字符然后凯撒解密即可。
 
 ​	不知道为什么我的 stegsolve 没用了，最后用的 Pr（大炮打蚊子.jpg）
 
-#### prob18-trivia 小北问答 [Turtorial]
+### prob18-trivia 小北问答 [Turtorial]
 
-​	**#1**:
+#### #1:
 
 ​		去高性能计算平台官网，找手册即可：https://hpc.pku.edu.cn/_book/guide/slurm/slurm.html
 
-​	**#2**:
+#### #2:
 
 ​		去 github 上找到小米对应机型的代码仓库：https://github.com/MiCode/Xiaomi_Kernel_OpenSource/tree/corot-t-oss
 
@@ -32,11 +32,13 @@ PATCHLEVEL = 15
 SUBLEVEL = 78
 ```
 
-​	**#3**:
+#### #3:
 
 ​		在 google 上搜索 "apple" "model identifier" 之类的，最终找到一份比较全的表格：https://www.theiphonewiki.com/wiki/Models
 
-​	**#4**: 在 github 上找到 guiding-star 的后端代码对应逻辑的部分：
+#### #4:
+
+​		在 github 上找到 guiding-star 的后端代码对应逻辑的部分：
 
 ```python
 DISALLOWED_CHARS = (
@@ -46,15 +48,15 @@ DISALLOWED_CHARS = (
     ) - EMOJI_CHARS
 ```
 
-​	本地 python 跑一下就知道答案了，注意只能用 py3.8（3.9 和 3.10 都错了呜呜呜)
+​		本地 python 跑一下就知道答案了，注意只能用 py3.8（3.9 和 3.10 都错了呜呜呜)
 
-​	**#5**:
+#### #5:
 
 ​		找了一下 https://web.archive.org/ 有保存过去网页的功能。
 
 ​		输入 bilibili.com，唉怎么不行？哦原来以前 b 站的网址是 bilibili.us，进去翻翻即得答案。
 
-​	**#6**:
+#### #6:
 
 ​		以 "启迪控股" "konza" "kacst" 为关键字在 google 搜索，发现一个很符合条件的会议：http://www.iaspbo.com.cn/contents/2/533
 
@@ -68,13 +70,13 @@ DISALLOWED_CHARS = (
 
 ​	
 
-#### prob15-service 猫咪状态监视器 [Misc]
+### prob15-service 猫咪状态监视器 [Misc]
 
-​	呜呜呜，之前怎么试都不行，提示看源码之后就很明朗了，代码审计这块还是完全不熟练。
+​		呜呜呜，之前怎么试都不行，提示看源码之后就很明朗了，代码审计这块还是完全不熟练。
 
-​	发现只有 `STATUS` 命令能让用户注入内容。
+​		发现只有 `STATUS` 命令能让用户注入内容。
 
-​	使用 `cat /usr/sbin/service` 获取 service 脚本内容，关注到这段主要的命令：
+​		使用 `cat /usr/sbin/service` 获取 service 脚本内容，关注到这段主要的命令：
 
 ```shell
 run_via_sysvinit() {
@@ -88,15 +90,15 @@ run_via_sysvinit() {
 }
 ```
 
-​	发现它不过就是一种包装起来调用程序的形式，那么直接调用 `cat flag.txt` 就行了呗。
+​		发现它不过就是一种包装起来调用程序的形式，那么直接调用 `cat flag.txt` 就行了呗。
 
-​	但是注意到运行目录是在 `/etc/init.d` 下，那么用 `../../` 退回根目录即可，输入 `../../usr/bin/cat /flag.txt` 即得
+​		但是注意到运行目录是在 `/etc/init.d` 下，那么用 `../../` 退回根目录即可，输入 `../../usr/bin/cat /flag.txt` 即得
 
 
 
-#### prob24-password 基本功 [Misc]
+### prob24-password 基本功 [Misc]
 
-​	**flag1:**
+#### flag1:
 
 ​		观察压缩包，里面有个莫名其妙的 chromedriver，同时压缩加密方式是 ZipCrypto, Store。
 
@@ -106,7 +108,7 @@ run_via_sysvinit() {
 
 ​		使用 ARCHPR 小工具破解即可。
 
-​	**flag2:**
+#### flag2:
 
 ​		又看了一眼明文攻击的内容，只需要 12 个字节的明文，且其中 8 个字节连续就能破解。
 
@@ -123,11 +125,9 @@ bkcrack -C challenge_2.zip -c flag2.pcapng -p plain2.txt -o 8 -x 0 0a0d0d0a
 bkcrack -C challenge_2.zip -c flag2.pcapng -k 152ef3dd 9cb3e97d c3ad256d -d flag2.pcapng
 ```
 
+### prob16-darkroom Dark Room [Misc]
 
-
-#### prob16-darkroom Dark Room [Misc]
-
-​	**flag1:**
+#### flag1:
 
 ​		先手玩一下，发现要在 sanity ≥ 117 时到达终点，正常游玩肯定是不行的。
 
@@ -181,15 +181,13 @@ while True:
 r.interactive()
 ```
 
+### prob22-minecraft 麦恩·库拉夫特 [Misc]
 
-
-#### prob22-minecraft 麦恩·库拉夫特 [Misc]
-
-​	**flag1:**
+#### flag1:
 
 ​		在矿洞里走走就看到了
 
-​	**flag2:**
+#### flag2:
 
 ​		根据提示，我们需要找钻石块。都 flag2 了，想必要用程序找位置。
 
@@ -201,13 +199,15 @@ r.interactive()
 
 ​		通过寻找告示牌（minecraft:sign）的位置，成功找到了 flag2
 
-​	~~**flag3:** 我服了这谁写的提示，写了跟没写一样 /fn。能找到 flag3 位置的，能不知道这是红石模电？~~
+#### ~~flag3:~~
+
+​		~~我服了这谁写的提示，写了跟没写一样 /fn。能找到 flag3 位置的，能不知道这是红石模电？~~
 
 
 
-#### prob14-emoji Emoji Wordle [Web]
+### prob14-emoji Emoji Wordle [Web]
 
-​	**flag1:**
+#### flag1:
 
 ​		答案固定的话，直接爆服务器就行！
 
@@ -250,15 +250,13 @@ for c in s:
 print(''.join(answer))
 ```
 
-​	**flag2: **
+#### flag2:	
 
 ​		题目说了数据存在 SESSION 里，打开 SESSION 一看，base64 一解密，这不是答案吗？
 
+### prob01-homepage 第三新XSS [Web]
 
-
-#### prob01-homepage 第三新XSS [Web]
-
-​	**flag1:**
+#### flag1:
 
 ​		阅读代码，发现程序把 flag 放在 /admin 路径下的 cookie，然后再获取自定义网页的 title。
 
@@ -287,11 +285,9 @@ xc=function(src){
 </body>
 ```
 
+### prob13-easyts 简单的打字稿 [Web]
 
-
-#### prob13-easyts 简单的打字稿 [Web]
-
-​	**flag1:**
+#### flag1:
 
 ​		翻了一下关于 TS 的资料，突然发现有一篇能用上：https://juejin.cn/post/6867538991073296392 
 
@@ -305,15 +301,13 @@ type filtered = ReplaceOnce<"flag", "", flag1>;
 const a : filtered = false;
 ```
 
+### prob25-krkr 汉化绿色版免费下载 [Binary]
 
-
-#### prob25-krkr 汉化绿色版免费下载 [Binary]
-
-​	**flag1:**
+#### flag1:
 
 ​		在判断两个字符串相等后，程序输出了 flag1，但是字体颜色与背景颜色一样。使用 Cheat Engine 搜索内存数据即可。
 
-​	**flag2:**
+#### flag2:
 
 ​		~~呜呜，我为什么不听 flag1 的话去解包 xp3。[快哭了]~~
 
@@ -372,11 +366,9 @@ int main() {
 }
 ```
 
+### prob09-easyc 初学 C 语言 [Binary]
 
-
-#### prob09-easyc 初学 C 语言 [Binary]
-
-​	**flag1:**
+#### flag1:
 
 ​		`checksec` 一下发现各项防御都开了。
 
@@ -401,9 +393,7 @@ for ll in solve1:
 print(bytes(b))
 ```
 
-
-
-​	**flag2:**
+#### flag2:
 
 ​		希望使用 ROP 劫持系统的 shell，首先一个问题是怎么往栈上 return 地址写入值。
 
@@ -492,11 +482,9 @@ p.interactive()
 
 ​		完整 EXP 见 `./src/easyc/solve2.py`。
 
+### prob10-babystack Baby Stack [Binary]
 
-
-#### prob10-babystack Baby Stack [Binary]
-
-​	**flag1:**
+#### flag1:
 
 ​		checksec 一下，PIE 和 Canary 都没开。
 
@@ -527,7 +515,7 @@ r.sendline(payload)
 r.interactive()
 ```
 
-​	**flag2:**
+#### flag2:		
 
 ​		沿用和上一题一样的思路，在 printf 的格式化字符串上做文章。
 
@@ -583,13 +571,11 @@ writing_bytes = (
 
 ​		完整 EXP 见 `./src/babystack/c2.py`。
 
-
-
-#### prob20-polynomial 绝妙的多项式 [Binary]
+### prob20-polynomial 绝妙的多项式 [Binary]
 
 ​		怎么感觉这题应该归到 Algo 里面去（
 
-​	**flag1:**
+#### flag1:
 
 ​		IDA 看一下，发现里面有一个 mint 类实现了模 998244353 的整数运算。
 
@@ -639,7 +625,7 @@ for i in range(n - 1, -1, -1):
 print(s[::-1])
 ```
 
-​	**flag2:**
+#### flag2:
 
 ​		进入 flag2 对应的 sub1AAE()，发现把字符串长度补齐到 2 的幂次，然后调用 sub_14BE()。
 
@@ -683,7 +669,7 @@ if (idft := 1):
 print(bytes(data))
 ```
 
-​	**flag3:**
+#### flag3:
 
 ​		既然知道 sub_14BE() 是 FFT，很明显 sub_1627() 就是 FFT 逆变换，代码实际上是在做一个多项式乘法（但是截取了前 64 项）
 
@@ -711,9 +697,7 @@ for i in range(n):
 print(bytes(answer))
 ```
 
-
-
-#### prob04-filtered 关键词过滤喵，谢谢喵 [Algorithm喵]
+### prob04-filtered 关键词过滤喵，谢谢喵 [Algorithm喵]
 
 ​		阅读题目，发现这其实是一种 esolang，需要我们写几段对应程序喵。
 
@@ -721,7 +705,7 @@ print(bytes(answer))
 
 ​		因为之前玩过类似的游戏 A=B，所以这题做起来也很顺畅喵。
 
-​	**flag1喵:**
+#### flag1喵:
 
 ​		可以在字符串结尾放入一个特殊字符用来分割输入与输出喵。
 
@@ -760,7 +744,7 @@ print(bytes(answer))
 
 ​		注意输入可能有换行，不能用 . 而要用 [\s\S] 之类的喵。
 
-​	**flag2喵:**
+#### flag2喵:
 
 ​		对长度进行排序，可以给每个字符串设置头尾指针喵。
 
@@ -790,7 +774,7 @@ print(bytes(answer))
 
 ​		这边有个小细节喵，我把开头结尾都放上了一个 \n 方便处理喵。
 
-​	**flag3喵：**
+#### flag3喵：
 
 ​		居然要写一个 brainfuck 解释器喵。
 
@@ -916,13 +900,11 @@ data pointer位于所指数据的右侧喵
     谢谢喵
 ```
 
-
-
-#### prob08-cookie 小章鱼的曲奇 [Algorithm]
+### prob08-cookie 小章鱼的曲奇 [Algorithm]
 
 ​		全场最奇异搞笑的题，没有之一。
 
-​	**flag1:**
+#### flag1:
 
 ​		给出了 python randbytes 生成的前 2500 个字节，需要预测接下来的数据。
 
@@ -959,7 +941,7 @@ for i in range(5000, len(password), 2):
 print(bytes(b))
 ```
 
-​	**flag2:**
+#### flag2:
 
 ​		发现它把 void1, void2 整体生成了若干个字节，我本来的想法是枚举这个生成的次数，然后预测。
 
@@ -1014,7 +996,7 @@ for start in range(0, (1 << 22) + 1, 1):
         exit(0)
 ```
 
-​	**flag3:**
+#### flag3:
 
 ​		这题更是重量级，观察代码，发现只要把给出的数据在 10 秒内输回去即可。出题人的疏忽让我们直接少做一个题。
 
@@ -1038,13 +1020,13 @@ r.sendline(s)
 r.interactive()
 ```
 
-#### 总结
+### 总结
 
-~~题出的好！难度适中，覆盖知识点广，题目又着切合实际的背景，解法比较自然。
+​		~~题出的好！难度适中，覆盖知识点广，题目又着切合实际的背景，解法比较自然。
 给出题人点赞 ！~~
 
-总体来讲还是很有意思的，题面有梗，题目难度有梯度，非常适合~~休闲娱乐~~爆肝。
+​		总体来讲还是很有意思的，题面有梗，题目难度有梯度，非常适合~~休闲娱乐~~爆肝。
 
-本萌新也是在这里第一次做出 pwn 题~~（享受攻入后台的快感）~~。
+​		本萌新也是在这里第一次做出 pwn 题~~（享受攻入后台的快感）~~。
 
-明年一定还来！
+​		明年一定还来！
